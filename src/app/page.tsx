@@ -10,9 +10,12 @@ import { useProductStore } from "@/context/ProductContext";
 export default function Home() {
   const router = useRouter();
   const { products, fetchProducts } = useProductStore();
+  console.log(products);
 
   useEffect(() => {
-    fetchProducts();
+    if (products.length === 0) {
+      fetchProducts();
+    }
   }, []);
 
   const handleButtonClick = () => {

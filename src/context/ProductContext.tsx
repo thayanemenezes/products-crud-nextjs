@@ -58,6 +58,8 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  console.log(products);
+
   useEffect(() => {
     fetchProducts();
   }, []);
