@@ -10,22 +10,25 @@ import {
 } from "@mui/material";
 import FormInput from "./FormInput";
 import { Controller } from "react-hook-form";
+import { Product } from "@/interfaces/product";
 
-export const ProductForm = () => {
-  const {
-    control,
-    handleSubmit,
-    handleCreateProduct,
-    handleCancel,
-    errors,
-    categories,
-  } = useFormContainer(productSchema);
+interface ProductFormProps {
+  defaultValues?: Product;
+  onSubmit: (data: Product) => void;
+  onCancel?: () => void;
+}
 
+export const ProductForm = ({
+  defaultValues,
+  onSubmit,
+  onCancel,
+}: ProductFormProps) => {
+  const { control, errors, categories, handleSubmit } = useFormContainer(
+    productSchema,
+    defaultValues
+  );
   return (
-    <form
-      className="flex flex-col"
-      onSubmit={handleSubmit(handleCreateProduct)}
-    >
+    <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
       <div className="grid grid-cols-3 gap-4">
         <FormInput
           control={control}
@@ -77,14 +80,14 @@ export const ProductForm = () => {
         <Button
           className=" text-gray-600 bg-slate-200 w-44 mt-8"
           type="button"
-          onClick={handleCancel}
+          onClick={onCancel}
         >
           Cancelar
         </Button>
         <Button
           className=" bg-green-600 text-white w-44 mt-8"
           type="submit"
-          onClick={handleSubmit(handleCreateProduct)}
+          onClick={handleSubmit(onSubmit)}
         >
           Enviar
         </Button>

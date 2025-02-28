@@ -1,24 +1,21 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useRouter } from "next/navigation";
+import { useProductStore } from "@/context/ProductContext";
 import { Product } from "@/interfaces/product";
 import { toast } from "react-hot-toast";
-import { useProductStore } from "../context/ProductContext";
 import { useEffect } from "react";
 
-export const useFormContainer = <T extends z.ZodTypeAny>(schema: T) => {
+export const useFormContainer = <T extends z.ZodTypeAny>(
+  schema: T,
+  defaultValues: any,
+  productId?: number
+) => {
   const router = useRouter();
-  const { addProduct, categories, fetchCategories } = useProductStore();
-
-  const defaultValues = {
-    title: "",
-    price: 0,
-    image: "",
-    description: "",
-    category: "",
-  };
+  const { addProduct, updateProduct, categories, fetchProductCategories } =
+    useProductStore();
 
   const {
     handleSubmit,
@@ -31,8 +28,8 @@ export const useFormContainer = <T extends z.ZodTypeAny>(schema: T) => {
   });
 
   useEffect(() => {
-    fetchCategories();
-  }, [fetchCategories]);
+    fetchProductCategories();
+  }, [fetchProductCategories]);
 
   const handleCreateProduct = (data: Product) => {
     try {
@@ -56,6 +53,27 @@ export const useFormContainer = <T extends z.ZodTypeAny>(schema: T) => {
     }
   };
 
+  const handleUpdateProduct = async (data: Product) => {
+    try {
+      if (productId === undefined) {
+        throw new Error("ID do produto não fornecido.");
+      }
+
+      await updateProduct(productId, data);
+      toast.success("Produto atualizado com sucesso! 🎉");
+      setTimeout(() => {
+        router.push("/");
+      }, 3000);
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : JSON.stringify(error);
+
+      toast.error(
+        `Erro ao atualizar produto: ${errorMessage || "Tente novamente."}`
+      );
+    }
+  };
+
   const handleCancel = () => {
     router.back();
   };
@@ -64,6 +82,7 @@ export const useFormContainer = <T extends z.ZodTypeAny>(schema: T) => {
     control,
     handleSubmit,
     handleCreateProduct,
+    handleUpdateProduct,
     handleCancel,
     categories,
     errors,

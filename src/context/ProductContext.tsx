@@ -11,6 +11,7 @@ import {
   createProduct as createProductApi,
   getCategoriesProduct,
   deleteProductApi,
+  updateProductApi,
 } from "../services/productService";
 import { Product, ProductContextType } from "@/interfaces/product";
 
@@ -20,7 +21,7 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
 
-  const fetchCategories = async () => {
+  const fetchProductCategories = async () => {
     const data = await getCategoriesProduct();
     setCategories(data);
   };
@@ -42,6 +43,21 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
+  const updateProduct = async (id: number, updatedProduct: Product) => {
+    try {
+      const data = await updateProductApi(id, updatedProduct);
+
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product.id === id ? { ...product, ...data } : product
+        )
+      );
+    } catch (error) {
+      console.error("Erro ao atualizar o produto:", error);
+      throw error;
+    }
+  };
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -53,8 +69,9 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
         fetchProducts,
         addProduct,
         categories,
-        fetchCategories,
+        fetchProductCategories,
         deleteProduct,
+        updateProduct,
       }}
     >
       {children}

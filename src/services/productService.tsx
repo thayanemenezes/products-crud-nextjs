@@ -21,7 +21,7 @@ export const createProduct = async (product: Product) => {
   return response.json();
 };
 
-export const updateProduct = async (id: number, product: Product) => {
+export const updateProductApi = async (id: number, product: Product) => {
   const response = await fetch(`${BASE_URL}/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
