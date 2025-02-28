@@ -62,13 +62,13 @@ Siga os passos abaixo para configurar e rodar o projeto localmente.
 2. **Instale as dependências:**
 
     npm install
-    # ou
+    ## ou
     yarn install 
 
 3. **Inicie o servidor de desenvolvimento:**    
 
     npm run dev
-    # ou
+    ## ou
     yarn dev
 
 3. **Acesse o projeto:**   
