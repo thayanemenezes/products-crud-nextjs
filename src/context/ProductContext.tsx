@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import {
   createContext,
   useContext,
@@ -9,7 +10,6 @@ import {
 import {
   getProducts,
   createProduct as createProductApi,
-  getCategoriesProduct,
   deleteProductApi,
   updateProductApi,
 } from "../services/productService";
@@ -19,12 +19,6 @@ const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 export const ProductProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
-
-  const fetchProductCategories = async () => {
-    const data = await getCategoriesProduct();
-    setCategories(data);
-  };
 
   const fetchProducts = async () => {
     const data = await getProducts();
@@ -58,8 +52,6 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  console.log(products);
-
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -70,8 +62,6 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
         products,
         fetchProducts,
         addProduct,
-        categories,
-        fetchProductCategories,
         deleteProduct,
         updateProduct,
       }}
@@ -81,10 +71,10 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useProductStore = () => {
+export const useProduct = () => {
   const context = useContext(ProductContext);
   if (!context) {
-    throw new Error("useProductStore must be used within a ProductProvider");
+    throw new Error("useProduct must be used within a ProductProvider");
   }
   return context;
 };

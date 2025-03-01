@@ -4,7 +4,7 @@ import { Paper } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
-import { useProductStore } from "@/context/ProductContext";
+import { useProduct } from "@/context/ProductContext";
 import { Product } from "@/interfaces/product";
 import { useFormContainer } from "@/hooks/useFormContainer";
 import { productSchema } from "@/schemas/productSchema";
@@ -12,7 +12,7 @@ import { productSchema } from "@/schemas/productSchema";
 const UpdateProduct = () => {
   const { id } = useParams();
   const router = useRouter();
-  const { products } = useProductStore();
+  const { products } = useProduct();
   const [product, setProduct] = useState<Product | null>(null);
   const { handleUpdateProduct } = useFormContainer(
     productSchema,

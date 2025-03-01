@@ -5,12 +5,11 @@ import { useEffect } from "react";
 import DropdownMenu from "@/components/Dropdown";
 import TableProducts from "@/components/TableProducts";
 import { Add } from "@mui/icons-material";
-import { useProductStore } from "@/context/ProductContext";
+import { useProduct } from "@/context/ProductContext";
 
 export default function Home() {
   const router = useRouter();
-  const { products, fetchProducts } = useProductStore();
-  console.log(products);
+  const { products, fetchProducts } = useProduct();
 
   useEffect(() => {
     if (products.length === 0) {

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../styles/globals.css";
 import NavBar from "@/components/NavBar";
 import { ProductProvider } from "@/context/ProductContext";
+import { CategoryProvider } from "@/context/CategoryContext";
 
 export const metadata: Metadata = {
   title: "CRUD de Produtos",
@@ -18,7 +19,9 @@ export default function RootLayout({
       <body>
         <NavBar />
         <ProductProvider>
-          <main>{children}</main>
+          <CategoryProvider>
+            <main>{children}</main>
+          </CategoryProvider>
         </ProductProvider>
       </body>
     </html>

@@ -9,12 +9,12 @@ import {
   Stack,
 } from "@mui/material";
 import { Delete } from "@mui/icons-material";
-import { useProductStore } from "@/context/ProductContext";
+import { useProduct } from "@/context/ProductContext";
 import { Product } from "@/interfaces/product";
 
 const DeleteButton = ({ product }: { product: Product }) => {
   const [open, setOpen] = useState(false);
-  const { deleteProduct } = useProductStore();
+  const { deleteProduct } = useProduct();
 
   const handleClick = () => {
     setOpen(true);

@@ -1,5 +1,5 @@
 "use client";
-import { useProductStore } from "@/context/ProductContext";
+import { useProduct } from "@/context/ProductContext";
 import { Product } from "@/interfaces/product";
 import { Paper, Typography } from "@mui/material";
 import { useParams } from "next/navigation";
@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 
 const VisualizeProduct = () => {
   const { id } = useParams();
-  const { products } = useProductStore();
+  const { products } = useProduct();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

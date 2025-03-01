@@ -3,10 +3,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
-import { useProductStore } from "@/context/ProductContext";
+import { useProduct } from "@/context/ProductContext";
 import { Product } from "@/interfaces/product";
 import { toast } from "react-hot-toast";
-import { useEffect } from "react";
 
 export const useFormContainer = <T extends z.ZodTypeAny>(
   schema: T,
@@ -14,8 +13,7 @@ export const useFormContainer = <T extends z.ZodTypeAny>(
   productId?: number
 ) => {
   const router = useRouter();
-  const { addProduct, updateProduct, categories, fetchProductCategories } =
-    useProductStore();
+  const { addProduct, updateProduct } = useProduct();
 
   const {
     handleSubmit,
@@ -24,12 +22,7 @@ export const useFormContainer = <T extends z.ZodTypeAny>(
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues,
-    mode: "onChange",
   });
-
-  useEffect(() => {
-    fetchProductCategories();
-  }, [fetchProductCategories]);
 
   const handleCreateProduct = (data: Product) => {
     try {
@@ -84,7 +77,6 @@ export const useFormContainer = <T extends z.ZodTypeAny>(
     handleCreateProduct,
     handleUpdateProduct,
     handleCancel,
-    categories,
     errors,
   };
 };

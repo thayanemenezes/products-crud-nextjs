@@ -1,19 +1,14 @@
 import { Product } from "@/interfaces/product";
 
-const BASE_URL = "https://fakestoreapi.com/products";
-
-export const getCategoriesProduct = async () => {
-  const response = await fetch("https://fakestoreapi.com/products/categories");
-  return response.json();
-};
+const apiUrl = "https://fakestoreapi.com/products";
 
 export const getProducts = async () => {
-  const response = await fetch(BASE_URL);
+  const response = await fetch(apiUrl);
   return response.json();
 };
 
 export const createProduct = async (product: Product) => {
-  const response = await fetch(BASE_URL, {
+  const response = await fetch(apiUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(product),
@@ -22,7 +17,7 @@ export const createProduct = async (product: Product) => {
 };
 
 export const updateProductApi = async (id: number, product: Product) => {
-  const response = await fetch(`${BASE_URL}/${id}`, {
+  const response = await fetch(`${apiUrl}/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(product),
@@ -31,7 +26,7 @@ export const updateProductApi = async (id: number, product: Product) => {
 };
 
 export const deleteProductApi = async (id: number) => {
-  const response = await fetch(`${BASE_URL}/${id}`, {
+  const response = await fetch(`${apiUrl}/${id}`, {
     method: "DELETE",
   });
   return response.json();

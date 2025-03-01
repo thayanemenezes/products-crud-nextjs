@@ -1,5 +1,5 @@
 "use client";
-import { ProductForm } from "@/components/ProductForm";
+import ProductForm from "@/components/ProductForm";
 import { useFormContainer } from "@/hooks/useFormContainer";
 import { productSchema } from "@/schemas/productSchema";
 import { Paper } from "@mui/material";

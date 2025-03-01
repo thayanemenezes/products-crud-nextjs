@@ -1,3 +1,4 @@
+import React from "react";
 import { useFormContainer } from "@/hooks/useFormContainer";
 import { productSchema } from "@/schemas/productSchema";
 import {
@@ -8,9 +9,10 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import FormInput from "./FormInput";
+import FormInput from "./UI/FormInput";
 import { Controller } from "react-hook-form";
 import { Product } from "@/interfaces/product";
+import { useCategories } from "@/hooks/useCategories";
 
 interface ProductFormProps {
   defaultValues?: Product;
@@ -18,15 +20,17 @@ interface ProductFormProps {
   onCancel?: () => void;
 }
 
-export const ProductForm = ({
+const ProductForm = ({
   defaultValues,
   onSubmit,
   onCancel,
 }: ProductFormProps) => {
-  const { control, errors, categories, handleSubmit } = useFormContainer(
+  const { categories } = useCategories();
+  const { control, errors, handleSubmit } = useFormContainer(
     productSchema,
     defaultValues
   );
+
   return (
     <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
       <div className="grid grid-cols-3 gap-4">
@@ -64,8 +68,8 @@ export const ProductForm = ({
           render={({ field, fieldState: { error } }) => (
             <FormControl fullWidth error={!!error}>
               <InputLabel>Categoria</InputLabel>
-              <Select {...field} label="Categoria">
-                {categories?.map((value: string) => (
+              <Select {...field} label="Categoria" value={field.value || ""}>
+                {categories?.map((value) => (
                   <MenuItem key={value} value={value}>
                     {value}
                   </MenuItem>
@@ -95,3 +99,4 @@ export const ProductForm = ({
     </form>
   );
 };
+export default ProductForm;

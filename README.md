@@ -36,7 +36,6 @@ Este é um projeto de CRUD (Create, Read, Update, Delete) de produtos desenvolvi
 
 ---
 
-
 ## 🚀 Como Executar o Projeto
 
 Siga os passos abaixo para configurar e rodar o projeto localmente.
@@ -75,10 +74,8 @@ Siga os passos abaixo para configurar e rodar o projeto localmente.
 
 Abra o navegador e acesse:
     http://localhost:3000
-
-
+    
 ---    
-
 
 ### Rotas Disponíveis
 

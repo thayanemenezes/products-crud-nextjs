@@ -21,10 +21,13 @@ export interface ProductFormUpdate {
 
 export interface ProductContextType {
   products: Product[];
-  categories: string[];
   deleteProduct: (id: number) => Promise<void>;
   updateProduct: (id: number, updateProduct: Product) => Promise<void>;
-  fetchProductCategories: () => Promise<void>;
   fetchProducts: () => Promise<void>;
   addProduct: (product: Product) => Promise<void>;
+}
+
+export interface CategoriesContextValue {
+  categories: string[];
+  fetchProductCategories: () => Promise<void>;
 }
