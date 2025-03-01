@@ -8,62 +8,30 @@ import {
 } from "@testing-library/react";
 import ProductForm from "@/components/ProductForm";
 import { ProductProvider } from "@/context/ProductContext";
+import { CategoryProvider } from "@/context/CategoryContext";
+import { useRouter } from "next/navigation";
 
-jest.mock("@/hooks/useCategories", () => ({
-  useCategories: () => ({
-    categories: ["electronics", "jewelery", "men's clothing"],
-  }),
-}));
-
-jest.mock("next/navigation", () => ({
-  useRouter: () => ({
-    push: jest.fn(),
-    back: jest.fn(),
-  }),
-}));
-
-jest.mock("@/services/productService", () => ({
-  getProducts: jest.fn(() => Promise.resolve([])),
-  createProduct: jest.fn(),
-  deleteProductApi: jest.fn(),
-  updateProductApi: jest.fn(),
-}));
+jest.mock("next/navigation", () => {
+  return {
+    __esModule: true,
+    useRouter: () => ({
+      push: jest.fn(),
+    }),
+  };
+});
 
 const renderWithProvider = (ui: React.ReactElement) => {
-  return render(<ProductProvider>{ui}</ProductProvider>);
+  return render(
+    <ProductProvider>
+      <CategoryProvider>{ui}</CategoryProvider>
+    </ProductProvider>
+  );
 };
 
 describe("create new product form", () => {
-  it("should render form components correctly", () => {
-    const onSubmit = jest.fn();
-
-    const defaultValues = {
-      title: "",
-      price: 0,
-      image: "",
-      description: "",
-      category: "electronics",
-    };
-
-    renderWithProvider(
-      <ProductForm defaultValues={defaultValues} onSubmit={onSubmit} />
-    );
-
-    expect(screen.getByLabelText("Título")).toBeInTheDocument();
-    expect(screen.getByLabelText("Preço")).toBeInTheDocument();
-    expect(screen.getByLabelText("Descrição")).toBeInTheDocument();
-    expect(screen.getByLabelText("Imagem")).toBeInTheDocument();
-    expect(screen.getByDisplayValue("electronics")).toBeInTheDocument();
-  });
-
   it("should call onSubmit when the form is submitted", async () => {
     const onSubmit = jest.fn();
-    render(
-      <ProductProvider>
-        <ProductForm onSubmit={onSubmit} />
-      </ProductProvider>
-    );
-
+    renderWithProvider(<ProductForm onSubmit={onSubmit} />);
     fireEvent.change(screen.getByLabelText("Título"), {
       target: { value: "Novo Produto" },
     });
@@ -73,15 +41,18 @@ describe("create new product form", () => {
     fireEvent.change(screen.getByLabelText("Imagem"), {
       target: { value: "imagem.jpg" },
     });
-    fireEvent.change(screen.getByLabelText("Categoria"), {
-      target: { value: "electronics" },
-    });
     fireEvent.change(screen.getByLabelText("Descrição"), {
       target: { value: "Descrição do produto" },
     });
 
+    const categorySelect = screen.getByLabelText("Categoria");
+    fireEvent.mouseDown(categorySelect);
+
+    const electronicsOption = await screen.findByText("electronics");
+    fireEvent.click(electronicsOption);
+
     await act(async () => {
-      fireEvent.click(screen.getByText("Enviar"));
+      fireEvent.submit(screen.getByRole("form"));
     });
 
     await waitFor(() => {

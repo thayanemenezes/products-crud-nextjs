@@ -1,6 +1,6 @@
+import React from "react";
 import { useState } from "react";
 import { Menu, MenuItem, Button } from "@mui/material";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { FilterAlt } from "@mui/icons-material";
 
 export default function DropdownMenu() {

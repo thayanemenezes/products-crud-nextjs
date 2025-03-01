@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { createContext, useContext, useState, ReactNode } from "react";
 import { CategoriesContextValue } from "@/interfaces/product";
 import { getCategoriesProduct } from "@/services/categoriesService";

@@ -32,7 +32,11 @@ const ProductForm = ({
   );
 
   return (
-    <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      role="form"
+      className="flex flex-col"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div className="grid grid-cols-3 gap-4">
         <FormInput
           control={control}
@@ -67,8 +71,13 @@ const ProductForm = ({
           name="category"
           render={({ field, fieldState: { error } }) => (
             <FormControl fullWidth error={!!error}>
-              <InputLabel>Categoria</InputLabel>
-              <Select {...field} label="Categoria" value={field.value || ""}>
+              <InputLabel id="category-label">Categoria</InputLabel>
+              <Select
+                {...field}
+                labelId="category-label"
+                label="Categoria"
+                value={field.value || ""}
+              >
                 {categories?.map((value) => (
                   <MenuItem key={value} value={value}>
                     {value}
@@ -88,11 +97,7 @@ const ProductForm = ({
         >
           Cancelar
         </Button>
-        <Button
-          className=" bg-green-600 text-white w-44 mt-8"
-          type="submit"
-          onClick={handleSubmit(onSubmit)}
-        >
+        <Button className=" bg-green-600 text-white w-44 mt-8" type="submit">
           Enviar
         </Button>
       </div>
