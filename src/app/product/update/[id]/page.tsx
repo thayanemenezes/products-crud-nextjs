@@ -1,5 +1,5 @@
 "use client";
-import { ProductForm } from "@/components/ProductForm";
+
 import { Paper } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
@@ -8,6 +8,7 @@ import { useProduct } from "@/context/ProductContext";
 import { Product } from "@/interfaces/product";
 import { useFormContainer } from "@/hooks/useFormContainer";
 import { productSchema } from "@/schemas/productSchema";
+import ProductForm from "@/components/ProductForm";
 
 const UpdateProduct = () => {
   const { id } = useParams();

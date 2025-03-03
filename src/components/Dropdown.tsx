@@ -3,7 +3,11 @@ import { useState } from "react";
 import { Menu, MenuItem, Button } from "@mui/material";
 import { FilterAlt } from "@mui/icons-material";
 
-export default function DropdownMenu() {
+interface DropdownMenuProps {
+  onFilterChange: (option: "priceAsc" | "priceDesc") => void;
+}
+
+export default function DropdownMenu({ onFilterChange }: DropdownMenuProps) {
   const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorElement);
 
@@ -15,6 +19,10 @@ export default function DropdownMenu() {
     setAnchorElement(null);
   };
 
+  const handleFilterChange = (option: "priceAsc" | "priceDesc") => {
+    onFilterChange(option);
+    handleClose();
+  };
   return (
     <div>
       <Button
@@ -25,13 +33,16 @@ export default function DropdownMenu() {
         Filtrar
       </Button>
       <Menu anchorEl={anchorElement} open={open} onClose={handleClose}>
-        <MenuItem onClick={handleClose} className="hover:bg-gray-100">
-          Categoria
-        </MenuItem>
-        <MenuItem onClick={handleClose} className="hover:bg-gray-100">
+        <MenuItem
+          onClick={() => handleFilterChange("priceAsc")}
+          className="hover:bg-gray-100"
+        >
           Menor Preço
         </MenuItem>
-        <MenuItem onClick={handleClose} className="hover:bg-gray-100">
+        <MenuItem
+          onClick={() => handleFilterChange("priceDesc")}
+          className="hover:bg-gray-100"
+        >
           Maior Preço
         </MenuItem>
       </Menu>

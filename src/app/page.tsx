@@ -7,10 +7,12 @@ import DropdownMenu from "@/components/Dropdown";
 import TableProducts from "@/components/TableProducts";
 import { Add } from "@mui/icons-material";
 import { useProduct } from "@/context/ProductContext";
+import { useFilter } from "@/hooks/useFilter";
 
 export default function Home() {
   const router = useRouter();
   const { products, fetchProducts } = useProduct();
+  const { handleSortChange, sortOption } = useFilter();
 
   useEffect(() => {
     if (products.length === 0) {
@@ -26,7 +28,7 @@ export default function Home() {
     <div className="h-full mt-20">
       <div className="p-8 flex flex-col">
         <div className="flex justify-end items-center gap-4 mb-5">
-          <DropdownMenu />
+          <DropdownMenu onFilterChange={handleSortChange} />
           <Button
             className="bg-green-600 text-gray-50 my-5 w-44"
             onClick={handleButtonClick}
@@ -35,7 +37,7 @@ export default function Home() {
             Novo Produto
           </Button>
         </div>
-        <TableProducts products={products} />
+        <TableProducts products={products} sortOption={sortOption} />
       </div>
     </div>
   );

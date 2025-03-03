@@ -9,10 +9,11 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import FormInput from "./UI/FormInput";
+
 import { Controller } from "react-hook-form";
 import { Product } from "@/interfaces/product";
 import { useCategories } from "@/hooks/useCategories";
+import FormInput from "@/components/UI/FormInput";
 
 interface ProductFormProps {
   defaultValues?: Product;

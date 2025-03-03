@@ -5,7 +5,15 @@ import React from "react";
 import { Product } from "@/interfaces/product";
 import { columns } from "./Columns";
 
-export default function TableProducts({ products }: { products: Product[] }) {
+interface TableProductsProps {
+  products: Product[];
+  sortOption?: "priceAsc" | "priceDesc" | null;
+}
+
+export default function TableProducts({
+  products,
+  sortOption,
+}: TableProductsProps) {
   if (!products || products.length === 0) {
     return (
       <div className="text-gray-600 flex items-center justify-center mt-14">
@@ -14,11 +22,14 @@ export default function TableProducts({ products }: { products: Product[] }) {
     );
   }
 
-  const sortedProducts = [...products].sort((a, b) => {
-    const ratingA = a.rating?.rate || 0;
-    const ratingB = b.rating?.rate || 0;
-    return ratingB - ratingA;
-  });
+  const sortedProducts = React.useMemo(() => {
+    if (sortOption === "priceAsc") {
+      return [...products].sort((a, b) => (a.price || 0) - (b.price || 0));
+    } else if (sortOption === "priceDesc") {
+      return [...products].sort((a, b) => (b.price || 0) - (a.price || 0));
+    }
+    return products;
+  }, [products, sortOption]);
 
   return (
     <Paper sx={{ width: "100%" }}>

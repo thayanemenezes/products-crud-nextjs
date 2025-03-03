@@ -33,7 +33,11 @@ const DeleteButton = ({ product }: { product: Product }) => {
   return (
     <>
       <Stack spacing={1} direction={"row"} justifyContent={"center"} mt={1}>
-        <IconButton onClick={handleClick} className="bg-red-600 text-gray-100">
+        <IconButton
+          onClick={handleClick}
+          className="bg-red-600 text-gray-100"
+          aria-label="delete"
+        >
           <Delete fontSize="small" />
         </IconButton>
       </Stack>
