@@ -1,6 +1,6 @@
 # Products CRUD - Next.js
 
-<img href="https://github.com/thayanemenezes/products-crud-nextjs/blob/main/public/screenshot.png">
+<img href="https://github.com/thayanemenezes/products-crud-nextjs/blob/main/screenshot.png">
 Este é um projeto de CRUD (Create, Read, Update, Delete) de produtos desenvolvido com **Next.js**, **TypeScript**, **Material-UI (MUI)** e **React Hook Form**. O projeto utiliza a **Context API** para gerenciamento de estado global e faz chamadas a uma API fake ([Fake Store API](https://fakestoreapi.com/)) para simular operações de criação, leitura, atualização e exclusão de produtos.
 
 ---
