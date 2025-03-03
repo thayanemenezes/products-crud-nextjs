@@ -39,6 +39,9 @@ export default function Home() {
         </div>
         <TableProducts products={products} sortOption={sortOption} />
       </div>
+      <div className="text-gray-600 text-center text-[12px] absolute right-0 left-0 bottom-3">
+        Desenvolvido com 🩵 por Thayane Menezes
+      </div>
     </div>
   );
 }

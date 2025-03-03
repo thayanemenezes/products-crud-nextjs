@@ -39,7 +39,7 @@ const VisualizeProduct = () => {
   return (
     <div className="mt-20 p-8">
       <div>Voltar</div>
-      <Paper className="p-8 flex items-center gap-16">
+      <Paper className="p-8 flex items-center gap-36">
         <img src={product.image} alt={product.title} className="max-w-xs" />
         <div className="flex flex-col">
           <Typography variant="h4" gutterBottom>
